@@ -15,7 +15,16 @@ class MainContainer extends Component {
   }
   fetchWisdom() {
     //get request
-    this.setState({ wisdomStatus: 'fetched', wisdom: 'This is the wisdom' });
+    fetch("http://localhost:3000/advice")
+    .then(res => res.json())
+    .then ((data) => {
+      this.setState({ wisdomStatus: 'fetched', wisdom: data });
+    },
+    (error) => {
+      console.log(error)
+    })
+
+    
   }
   render() {
     const { wisdom } = this.state;
