@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 
-
-const TextBox = () => {
-    return (
-        <div>
-            <h1>This will be the  wisdom</h1>
-        </div>
-    )
-}
-
-
+const TextBox = (props) => {
+  return (
+    <div>
+      <h1>{props.wisdom}</h1>
+    </div>
+  );
+};
 
 export default TextBox;
