@@ -3,6 +3,7 @@ import render from 'react-dom';
 import Button from '../components/Button.js';
 import TextBox from '../components/TextBox.js';
 import Wizard from '../assets/axolotlwizard.png';
+import Login from '../components/Login.js';
 
 class MainContainer extends Component {
   constructor(props) {
@@ -10,8 +11,11 @@ class MainContainer extends Component {
     this.state = {
       wisdomStatus: 'notFetched',
       wisdom: '',
+      name:'',
+      loginStatus: false,
     };
     this.fetchWisdom = this.fetchWisdom.bind(this);
+    this.login = this.login.bind(this);
   }
   fetchWisdom() {
     //get request
@@ -23,25 +27,38 @@ class MainContainer extends Component {
     (error) => {
       console.log(error)
     })
+  }
+  login (loginInfo) {
+    //const { username, password  } = loginInfo;
+    //insert back end logic here
 
-    
+    this.setState({ loginStatus: true, name: "Data" })
   }
   render() {
-    const { wisdom } = this.state;
-
-    const renderWisdom = () => {
-      if (this.state.wisdomStatus == 'fetched') {
-        return <TextBox wisdom={wisdom} />;
-      } else return <h1>Awaiting your command</h1>;
-    };
+    const { wisdom, wisdomStatus, loginStatus, name } = this.state;
+    const renderLogin = () => {
+      if (this.state.loginStatus) {
+        return (
+          <div className="MainContainer">
+            <img className="Wizard" src={Wizard} />
+            <TextBox wisdom={wisdom} wisdomStatus = {wisdomStatus} />
+            <Button fetchWisdom={this.fetchWisdom} />
+          </div>
+        )
+      } else {
+        return (
+          <div className="MainContainer">
+            <Login login = {this.login}/>
+          </div>
+        )
+      }
+    }
 
     return (
-      <div className="MainContainer">
-        <img className="Wizard" src={Wizard} />
-        {renderWisdom()}
-        <Button fetchWisdom={this.fetchWisdom} />
-        
+      <div>
+        {renderLogin()}
       </div>
+       
     );
   }
 }
