@@ -1,8 +1,14 @@
-// #app {
-//   display: flex;
-//   align-items: flex-start;
-//   justify-content: center;
-// }
+$background-color: #77cbb9;
+$light-pink: #fdc5f5;
+$pink: #F7AEF8;
+$dark-pink: #523a52;
+$lavender: #B388EB;
+$blue: #8093F1;
+$shadow: #1b131b;
+
+body {
+  background-color: $background-color;
+}
 
 .MainContainer {
   display: flex;
@@ -14,5 +20,16 @@
 }
 
 .Wizard {
-  height: 400px;
+  height: 300px;
+}
+
+.askButton {
+  height: 30px;
+  color: $dark-pink;
+  background-color: $light-pink;
+  border-style: solid;
+  border-radius: 14px;
+  border-width: 1px;
+  border-color: $light-pink;
+  box-shadow: 2px 2px 5px $shadow;
 }

@@ -29,8 +29,9 @@ class MainContainer extends Component {
     return (
       <div className="MainContainer">
         <img className="Wizard" src={Wizard} />
-        <Button fetchWisdom={this.fetchWisdom} />
         {renderWisdom()}
+        <Button fetchWisdom={this.fetchWisdom} />
+        
       </div>
     );
   }
