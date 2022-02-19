@@ -20,9 +20,9 @@ app.post('/signup', user_controller.addUser, (req,res) => {
     res.status(200).json(res.locals.name)//signup data
 })
 
-// app.get('/login/:username/:password', user_controller.getUser, (req, res) => {
-//     res.status(200).json(res.locals.name)
-// })
+app.get('/login/:username/:password', user_controller.getUser, (req, res) => {
+    res.status(200).json(res.locals.name)
+})
 
 // catch-all route handler for requests made to unknown route
 app.use((req, res) => res.status(404).send('Request sent to unknown page'));
