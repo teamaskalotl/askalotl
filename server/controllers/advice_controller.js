@@ -10,7 +10,7 @@ advice_controller.getLotlAdvice = (req, res, next) => {
     //do we need idNum to be a string instead???
     db.query(query, [idNum])
         .then(data => {
-            console.log(data);
+            // console.log(data);
             res.locals.advice = data.rows[0].response;
             return next();
         })
