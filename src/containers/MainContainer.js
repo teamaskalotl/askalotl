@@ -16,6 +16,7 @@ class MainContainer extends Component {
     };
     this.fetchWisdom = this.fetchWisdom.bind(this);
     this.login = this.login.bind(this);
+    this.signUp = this.signUp.bind(this);
   }
   fetchWisdom() {
     //get request
@@ -32,7 +33,10 @@ class MainContainer extends Component {
     //const { username, password  } = loginInfo;
     //insert back end logic here
 
-    this.setState({ loginStatus: true, name: "Data" })
+    return this.setState({ loginStatus: true, name: "Data" })
+  }
+  signUp () {
+    return this.setState({ loginStatus: true, name: "Data" })
   }
   render() {
     const { wisdom, wisdomStatus, loginStatus, name } = this.state;
@@ -48,7 +52,7 @@ class MainContainer extends Component {
       } else {
         return (
           <div className="MainContainer">
-            <Login login = {this.login}/>
+            <Login login = {this.login} signUp = {this.signUp}/>
           </div>
         )
       }

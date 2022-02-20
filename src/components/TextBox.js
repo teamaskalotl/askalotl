@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 const TextBox = (props) => {
     const renderWisdom = () => {
-        if (this.state.wisdomStatus == 'fetched') {
+        if (props.wisdomStatus == 'fetched') {
         return <TextBox wisdom={wisdom} />;
         } else return <h1>Awaiting your command</h1>;
       }
