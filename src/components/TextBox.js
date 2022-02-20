@@ -8,7 +8,7 @@ const TextBox = (props) => {
       }
   return (
     <div>
-      <h1>{renderWisdom()}</h1>
+      {renderWisdom()}
     </div>
   );
 };

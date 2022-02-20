@@ -11,7 +11,7 @@ class MainContainer extends Component {
     this.state = {
       wisdomStatus: 'notFetched',
       wisdom: '',
-      name:'',
+      name: '',
       loginStatus: false,
     };
     this.fetchWisdom = this.fetchWisdom.bind(this);
@@ -29,15 +29,62 @@ class MainContainer extends Component {
       console.log(error)
     })
   }
-  login (loginInfo) {
-    //const { username, password  } = loginInfo;
-    //insert back end logic here
 
-    return this.setState({ loginStatus: true, name: "Data" })
+  login (loginInfo) {
+    const { username, password  } = loginInfo;
+    //insert back end logic here
+    fetch(`http://localhost:3000/login/${username}/${password}`, {
+      method: 'GET'
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      //if (typeof data !== string) data = ''
+      return this.setState({
+        name: data,
+        loginStatus: true
+      })
+    })
+    .catch(err => {
+      return this.setState({
+        name: '',
+        loginStatus: false
+        //do we want to render our sign up page here?
+      })
+    } )
+    //return this.setState({ loginStatus: true, name: "Data" })
   }
-  signUp () {
-    return this.setState({ loginStatus: true, name: "Data" })
+
+  signUp (signUpInfo) {
+    console.log(signUpInfo)
+    const { firstName, username, password } = signUpInfo;
+    console.log(firstName);
+    fetch('http://localhost:3000/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: firstName,
+        username: username,
+        password: password
+      })
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      //if (typeof data !== string) data = ''
+      return this.setState({
+        name: data,
+        loginStatus: true
+      })
+    })
+    .catch(err => {
+      return this.setState({
+        name: '',
+        loginStatus: false
+      })
+    })
   }
+
   render() {
     const { wisdom, wisdomStatus, loginStatus, name } = this.state;
     const renderLogin = () => {

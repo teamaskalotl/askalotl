@@ -1,24 +1,54 @@
 import React, { Component } from 'react';
 
 class Login extends Component {
-  initialState = {
-    name: '',
-    username: '',
-    password: '',
-    toggleSignUp: false,
+  constructor (props) {
+    super(props);
+    this.state = {
+      firstName: '',
+      username: '',
+      password: '',
+      toggleSignUp: false,
+    }
+    this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleLoginSubmit = this.handleLoginSubmit.bind(this)
+    this.handleSignupSubmit = this.handleSignupSubmit.bind(this)
   }
-  state = this.initialState;
+
+  handleInputChange(e) {
+    e.preventDefault();
+    const target = e.target;
+    this.setState({
+      [target.name]: target.value,
+    });
+  }
+  handleLoginSubmit(e) {
+    e.preventDefault();
+    this.props.login({username: this.state.username, password :this.state.password})
+  }
+  handleSignupSubmit(e) {
+    e.preventDefault();
+    this.props.signUp({firstName : this.state.firstName, username: this.state.username, password :this.state.password})
+  }
 
   logOrSign() {
-    if (this.state.toggleSignUp=== true) {
+    if (this.state.toggleSignUp === true) {
       return (
         //Sign up form
         <div>
-          <form onSubmit={() => this.props.signUp()}>
-            <label>
-              Email or username
+          <form onSubmit={(e) => this.handleSignupSubmit(e)}>
+          <label>
+              Name
               <input
-                name="emailOrUsername"
+                name="firstName"
+                type="text"
+                value={this.state.firstName}
+                onChange={this.handleInputChange}
+              />
+            </label>
+            <label>
+              Username
+              <input
+                name="username"
                 type="text"
                 value={this.state.username}
                 onChange={this.handleInputChange}
@@ -34,7 +64,7 @@ class Login extends Component {
               />
             </label>
           </form>
-          <button className='signUp' onClick={() => this.props.signUp()}>
+          <button className='signUp' onClick={(e) => this.handleSignupSubmit(e)}>
             Sign Up
           </button>
         </div>
@@ -44,11 +74,11 @@ class Login extends Component {
       return (
         //login form
         <div>
-          <form onSubmit={() => this.props.login()}>
+          <form onSubmit={(e) => this.handleLoginSubmit(e)}>
             <label>
               Username
               <input
-                name="emailOrUsername"
+                name="username"
                 type="text"
                 value={this.state.username}
                 onChange={this.handleInputChange}
