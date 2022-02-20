@@ -4,6 +4,7 @@ const path = require('path');
 const PORT = 3000;
 const cors = require('cors');
 const advice_controller = require('./controllers/advice_controller');
+const user_controller = require('./controllers/user_controller');
 
 //receive requests here
 app.use(express.json());
@@ -15,7 +16,13 @@ app.get('/advice', advice_controller.getLotlAdvice, (req, res) => {
     res.status(200).json(res.locals.advice)
 })
 
+app.post('/signup', user_controller.addUser, (req,res) => {
+    res.status(200).json(res.locals.name)//signup data
+})
 
+app.get('/login/:username/:password', user_controller.getUser, (req, res) => {
+    res.status(200).json(res.locals.name)
+})
 
 // catch-all route handler for requests made to unknown route
 app.use((req, res) => res.status(404).send('Request sent to unknown page'));
