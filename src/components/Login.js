@@ -41,7 +41,7 @@ class Login extends Component {
               <input
                 name="firstName"
                 type="text"
-                value={this.state.firstName}
+                //value={this.state.firstName}
                 onChange={this.handleInputChange}
               />
             </label>
@@ -50,7 +50,7 @@ class Login extends Component {
               <input
                 name="username"
                 type="text"
-                value={this.state.username}
+                //value={this.state.username}
                 onChange={this.handleInputChange}
               />
             </label>
