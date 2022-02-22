@@ -8,6 +8,7 @@ advice_controller.getLotlAdvice = (req, res, next) => {
     const query = `SELECT response FROM neutralResponse WHERE _id = $1`;
     const idNum = Math.ceil(Math.random() * 6);
     //do we need idNum to be a string instead???
+    console.log("received")
     db.query(query, [idNum])
         .then(data => {
             // console.log(data);
