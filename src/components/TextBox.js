@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 
 const TextBox = (props) => {
-  return (
-    <div>
-      <h1>{props.wisdom}</h1>
-    </div>
-  );
-};
+        if (props.wisdomStatus == 'fetched') {
+        return  <h1>{props.wisdom} </h1>
+        } else return <h1>Awaiting your command</h1>;
+      }
 
 export default TextBox;

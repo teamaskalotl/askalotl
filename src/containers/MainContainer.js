@@ -3,6 +3,7 @@ import render from 'react-dom';
 import Button from '../components/Button.js';
 import TextBox from '../components/TextBox.js';
 import Wizard from '../assets/axolotlwizard.png';
+import Login from '../components/Login.js';
 
 class MainContainer extends Component {
   constructor(props) {
@@ -10,38 +11,98 @@ class MainContainer extends Component {
     this.state = {
       wisdomStatus: 'notFetched',
       wisdom: '',
+      name: '',
+      loginStatus: false,
     };
     this.fetchWisdom = this.fetchWisdom.bind(this);
+    this.login = this.login.bind(this);
+    this.signUp = this.signUp.bind(this);
   }
   fetchWisdom() {
-    //get request
+    console.log("clicked")
     fetch("http://localhost:3000/advice")
-    .then(res => res.json())
+    .then((res) => res.json())
     .then ((data) => {
-      this.setState({ wisdomStatus: 'fetched', wisdom: data });
+      return this.setState({ wisdomStatus: 'fetched', wisdom: data });
     },
     (error) => {
       console.log(error)
     })
-
-    
   }
-  render() {
-    const { wisdom } = this.state;
 
-    const renderWisdom = () => {
-      if (this.state.wisdomStatus == 'fetched') {
-        return <TextBox wisdom={wisdom} />;
-      } else return <h1>Awaiting your command</h1>;
-    };
+  login (loginInfo) {
+    const { username, password  } = loginInfo;
+    fetch(`http://localhost:3000/login/${username}/${password}`, {
+      method: 'GET'
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      return this.setState({
+        name: data,
+        loginStatus: true
+      })
+    })
+    .catch(err => {
+      return this.setState({
+        name: '',
+        loginStatus: false
+      })
+    } )
+  }
+
+  signUp (signUpInfo) {
+    const { firstName, username, password } = signUpInfo;
+    fetch('http://localhost:3000/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: firstName,
+        username: username,
+        password: password
+      })
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      return this.setState({
+        name: data,
+        loginStatus: true
+      })
+    })
+    .catch(err => {
+      return this.setState({
+        name: '',
+        loginStatus: false
+      })
+    })
+  }
+
+  render() {
+    const { wisdom, wisdomStatus, loginStatus, name } = this.state;
+    const renderLogin = () => {
+      if (this.state.loginStatus) {
+        return (
+          <div className="MainContainer">
+            <img className="Wizard" src={Wizard} />
+            <TextBox wisdom={wisdom} wisdomStatus = {wisdomStatus} />
+            <Button fetchWisdom={this.fetchWisdom} />
+          </div>
+        )
+      } else {
+        return (
+          <div className="MainContainer">
+            <Login login = {this.login} signUp = {this.signUp}/>
+          </div>
+        )
+      }
+    }
 
     return (
-      <div className="MainContainer">
-        <img className="Wizard" src={Wizard} />
-        {renderWisdom()}
-        <Button fetchWisdom={this.fetchWisdom} />
-        
+      <div>
+        {renderLogin()}
       </div>
+       
     );
   }
 }
