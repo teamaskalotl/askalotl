@@ -19,11 +19,11 @@ class MainContainer extends Component {
     this.signUp = this.signUp.bind(this);
   }
   fetchWisdom() {
-    //get request
+    console.log("clicked")
     fetch("http://localhost:3000/advice")
-    .then(res => res.json())
+    .then((res) => res.json())
     .then ((data) => {
-      this.setState({ wisdomStatus: 'fetched', wisdom: data });
+      return this.setState({ wisdomStatus: 'fetched', wisdom: data });
     },
     (error) => {
       console.log(error)
@@ -32,13 +32,11 @@ class MainContainer extends Component {
 
   login (loginInfo) {
     const { username, password  } = loginInfo;
-    //insert back end logic here
     fetch(`http://localhost:3000/login/${username}/${password}`, {
       method: 'GET'
     })
     .then((res) => res.json())
     .then((data) => {
-      //if (typeof data !== string) data = ''
       return this.setState({
         name: data,
         loginStatus: true
@@ -48,16 +46,12 @@ class MainContainer extends Component {
       return this.setState({
         name: '',
         loginStatus: false
-        //do we want to render our sign up page here?
       })
     } )
-    //return this.setState({ loginStatus: true, name: "Data" })
   }
 
   signUp (signUpInfo) {
-    console.log(signUpInfo)
     const { firstName, username, password } = signUpInfo;
-    console.log(firstName);
     fetch('http://localhost:3000/signup', {
       method: 'POST',
       headers: {
@@ -71,7 +65,6 @@ class MainContainer extends Component {
     })
     .then((res) => res.json())
     .then((data) => {
-      //if (typeof data !== string) data = ''
       return this.setState({
         name: data,
         loginStatus: true
