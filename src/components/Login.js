@@ -36,37 +36,50 @@ class Login extends Component {
         //Sign up form
         <div>
           <form onSubmit={(e) => this.handleSignupSubmit(e)}>
-          <label>
-              Name
-              <input
-                name="firstName"
-                type="text"
-                //value={this.state.firstName}
-                onChange={this.handleInputChange}
-              />
-            </label>
-            <label>
-              Username
-              <input
-                name="username"
-                type="text"
-                //value={this.state.username}
-                onChange={this.handleInputChange}
-              />
-            </label>
-            <label>
-              Password
-              <input
-                name="password"
-                type="password"
-                value={this.state.password}
-                onChange={this.handleInputChange}
-              />
-            </label>
-          </form>
-          <button className='signUp' onClick={(e) => this.handleSignupSubmit(e)}>
+            <div className='signUpFields'>
+              <div>
+                <label>
+                Name:
+                <input
+                  name="firstName"
+                  type="text"
+                  value={this.state.firstName}
+                  onChange={this.handleInputChange}
+                />
+                </label>
+              </div>
+              <div>
+                <label>
+                Username:
+                <input
+                  name="username"
+                  type="text"
+                  value={this.state.username}
+                  onChange={this.handleInputChange}
+                />
+                </label>
+              </div>
+              <div>
+                <label>
+                Password:
+                <input
+                  name="password"
+                  type="password"
+                  value={this.state.password}
+                  onChange={this.handleInputChange}
+                />
+                </label>
+              </div>
+
+            </div>
+            
+            <button 
+            className='loginButton' 
+            onClick={(e) => this.handleSignupSubmit(e)}>
             Sign Up
-          </button>
+            </button>  
+          </form>
+          
         </div>
       )
     }
@@ -74,29 +87,38 @@ class Login extends Component {
       return (
         //login form
         <div>
+          <h2 className='welcome'>Welcome to Askalotl</h2>
           <form onSubmit={(e) => this.handleLoginSubmit(e)}>
-            <label>
-              Username
+            <div>
+              <label>
+              Username:
               <input
                 name="username"
                 type="text"
                 value={this.state.username}
                 onChange={this.handleInputChange}
               />
-            </label>
-            <label>
-              Password
+              </label>
+            </div>
+            <div>
+              <label>
+              Password :
               <input
                 name="password"
                 type="password"
                 value={this.state.password}
                 onChange={this.handleInputChange}
               />
-            </label>
-            <button type="submit">Log in</button>
+              </label>
+            </div>
+            <div className='loginButtonCont'>
+              <button type="submit" className='loginButton'>Log in</button>
+              <button 
+              className='loginButton' 
+              onClick={() => this.setState({toggleSignUp: true})}>Sign Up
+              </button>
+            </div>
           </form>
-          <button className='signUp' onClick={() => this.setState({toggleSignUp: true})}>Sign Up</button>
-
         </div>
 
       )
@@ -108,9 +130,12 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
-        { this.logOrSign() }
+      <div className='loginContainer'>
+        <div className='loginPage'>
+          { this.logOrSign() }
+        </div>
       </div>
+      
     );
   }
 }
