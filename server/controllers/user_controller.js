@@ -34,7 +34,7 @@ user_controller.getUser = (req, res, next) => {
         })
         .catch((e) => {
             return next({
-                log: "Error occcurred in user_controller.getUser",
+                log: "Error occurred in user_controller.getUser",
                 message: { e: "An error occurred" }
             })
         })
